@@ -35,4 +35,12 @@ public class MainController {
 		// This returns a JSON or XML with the users
 		return userRepository.findAll();
 	}
+	
+	@GetMapping(path="/opentables")
+	public @ResponseBody Iterable<User> getAllUsers() {
+		// This returns a JSON or XML with the users
+		OpenTables.main();
+		
+		return userRepository.findAll();
+	}
 }
