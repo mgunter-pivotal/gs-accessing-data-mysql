@@ -46,7 +46,7 @@ public class MainController {
 		try{
 		OpenTables.main(args);
 		}
-		catch(Exception e){System.out.println(e.printStackTrace());
+		catch(Exception e){e.printStackTrace();
 				  }
 		
 		return userRepository.findAll();
