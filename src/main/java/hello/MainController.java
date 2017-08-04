@@ -44,7 +44,7 @@ public class MainController {
 		
 		String[] args = {};
 		try{
-		OpenTables.main(args);
+		OpenTables.main2(args);
 		}
 		catch(Exception e){e.printStackTrace();
 				  }
