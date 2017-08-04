@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class OpenTables implements Runnable {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main2(String[] args) throws SQLException {
 		(new Thread(new OpenTables("jdbc:mysql://lb-mysql-wfm.paas.mia.ulti.io:3306/cf_7f909cea_c94d_4fa6_893e_a9d4f12590b0?" +
 				"user=<REDACTED>" +
 				"password=<REDACTED>" +
