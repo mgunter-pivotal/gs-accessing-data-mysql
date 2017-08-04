@@ -42,7 +42,11 @@ public class MainController {
 		// This returns a JSON or XML with the users
 		
 		String[] args = {};
+		try{
 		OpenTables.main(args);
+		}
+		catch(Exception e){System.out.println(e.printstacktrace());
+				  }
 		
 		return userRepository.findAll();
 	}
