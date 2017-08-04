@@ -40,7 +40,9 @@ public class MainController {
 	@GetMapping(path="/opentables")
 	public @ResponseBody Iterable<User> getOpenTables() {
 		// This returns a JSON or XML with the users
-		OpenTables.main(String[] args);
+		
+		String[] args = {};
+		OpenTables.main(args);
 		
 		return userRepository.findAll();
 	}
