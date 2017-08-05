@@ -8,5 +8,9 @@ import hello.User;
 // CRUD refers Create, Read, Update, Delete
 
 public interface UserRepository extends CrudRepository<User, Long> {
+  
+  public void openTablesMethod(User user) {
+    // Your custom implementation
+  }
 
 }
