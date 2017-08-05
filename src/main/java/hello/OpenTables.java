@@ -2,6 +2,11 @@ package hello;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import io.pivotal.labs.cfenv.CloudFoundryEnvironment;
+import io.pivotal.labs.cfenv.CloudFoundryEnvironmentException;
+import io.pivotal.labs.cfenv.CloudFoundryService;
 
 /**
  *  Purpose of this tool is to create multi-threaded database connections to TIME/TOA/SCHEDULER application
@@ -9,7 +14,7 @@ import java.util.ArrayList;
  */
 public class OpenTables implements Runnable {
 
-	public static void main2(String[] args) throws SQLException {
+	public static void main2(String[] args) throws Exception {
 		(new Thread(new OpenTables("jdbc:mysql://odZjiaoWn7jBaf7t:SbT2wcgkvQjGd2xq@10.0.0.70:3306/cf_8354bc6b_d19d_43b5_88bb_1286d978a4a2?reconnect=true" +
 				"user=odZjiaoWn7jBaf7t" +
 				"password=SbT2wcgkvQjGd2xq" +
@@ -47,12 +52,35 @@ public class OpenTables implements Runnable {
 		}
 	}
 
-	private OpenTables(String connectionUrl, String appName) throws SQLException {
+	private OpenTables(String connectionUrl, String appName) throws Exception {
 		tables = new ArrayList<>();
+		CloudFoundryEnvironment environment;
+        try {
+            environment = new CloudFoundryEnvironment(System::getenv);
+        } catch (CloudFoundryEnvironmentException e) {
+            throw new Exception(e);
+        }
+
+
+        try {
+            for (String serviceName : environment.getServiceNames()) {
+                CloudFoundryService service = environment.getService(serviceName);
+                System.out.println("[" + service.getName() + "]");
+                System.out.println("label = " + service.getLabel());
+                if (service.getPlan() != null) System.out.println("plan = " + service.getPlan());
+                System.out.println("tags = " + service.getTags().stream().collect(Collectors.joining(", ")));
+                java.util.Map<String, Object> credentials = service.getCredentials();
+                credentials.forEach((name, value) -> System.out.println("credentials." + name + " = " + value));
+                System.out.println();
+            }
 		conn = DriverManager.getConnection(connectionUrl);
 		dbName = conn.getCatalog();
 		this.appName = appName;
 		getTableNames();
+		}
+        catch(Exception e){ e.printStackTrace();}
+		finally{}
+        
 	}
 
 	private void getTableNames() throws SQLException {

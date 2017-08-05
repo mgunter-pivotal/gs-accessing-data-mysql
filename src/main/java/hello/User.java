@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.data.jpa.repository.Query;
+
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
     @Id
@@ -39,10 +41,7 @@ public class User {
 		this.email = email;
 	}
 	
-	public void openTablesMethod(User user) {
-    // Your custom implementation
-  }
-    
+
     
 }
 
