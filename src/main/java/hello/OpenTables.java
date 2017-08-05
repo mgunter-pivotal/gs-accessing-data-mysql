@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class OpenTables implements Runnable {
 
 	public static void main2(String[] args) throws SQLException {
-		(new Thread(new OpenTables("jdbc:mysql://lb-mysql-wfm.paas.mia.ulti.io:3306/cf_7f909cea_c94d_4fa6_893e_a9d4f12590b0?" +
-				"user=<REDACTED>" +
-				"password=<REDACTED>" +
+		(new Thread(new OpenTables("jdbc:mysql://odZjiaoWn7jBaf7t:SbT2wcgkvQjGd2xq@10.0.0.70:3306/cf_8354bc6b_d19d_43b5_88bb_1286d978a4a2?reconnect=true" +
+				"user=odZjiaoWn7jBaf7t" +
+				"password=SbT2wcgkvQjGd2xq" +
 				"connectionCollation=utf8_general_ci&" +
 				"characterSetResults=utf8&" +
 				"characterEncoding=utf-8&" +
