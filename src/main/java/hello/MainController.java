@@ -42,7 +42,14 @@ public class MainController {
 	public @ResponseBody Iterable<User> getOpenTables() {
 		// This returns a JSON or XML with the users
 		
-		userRepository.openTablesMethod();
+	//	userRepository.openTablesMethod();
+		String[] args = null;
+		try {
+			OpenTables.main2(args);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return userRepository.findAll();
 	}

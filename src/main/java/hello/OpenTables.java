@@ -15,21 +15,14 @@ import io.pivotal.labs.cfenv.CloudFoundryService;
 public class OpenTables implements Runnable {
 
 	public static void main2(String[] args) throws Exception {
-		(new Thread(new OpenTables("jdbc:mysql://odZjiaoWn7jBaf7t:SbT2wcgkvQjGd2xq@10.0.0.70:3306/cf_8354bc6b_d19d_43b5_88bb_1286d978a4a2?reconnect=true" +
-				"user=odZjiaoWn7jBaf7t" +
-				"password=SbT2wcgkvQjGd2xq" +
-				"connectionCollation=utf8_general_ci&" +
-				"characterSetResults=utf8&" +
-				"characterEncoding=utf-8&" +
-				"useLegacyDatetimeCode=false&" +
-				"serverTimezone=UTC&" +
-				"useFractionalSeconds=true", "TOA"))).start();
+		(new Thread(new OpenTables("not needed", "TOA"))).start();
 	}
 
 	private Connection conn;
 	private String dbName;
 	private String appName;
 	private ArrayList<String> tables;
+	private String connUrl;
 
 	@Override
 	public void run() {
@@ -70,10 +63,12 @@ public class OpenTables implements Runnable {
                 if (service.getPlan() != null) System.out.println("plan = " + service.getPlan());
                 System.out.println("tags = " + service.getTags().stream().collect(Collectors.joining(", ")));
                 java.util.Map<String, Object> credentials = service.getCredentials();
-                credentials.forEach((name, value) -> System.out.println("credentials." + name + " = " + value));
+                credentials.forEach((name, value) -> {if (name == "jdbcUrl") {this.connUrl=value.toString();}
+                System.out.println("credentials." + name + " = " + value);});
+               
                 System.out.println();
             }
-		conn = DriverManager.getConnection(connectionUrl);
+		conn = DriverManager.getConnection(connUrl);
 		dbName = conn.getCatalog();
 		this.appName = appName;
 		getTableNames();
